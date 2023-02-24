@@ -8,7 +8,9 @@ https://github.com/snakers4/silero-vad
 https://github.com/openai/openai-python
 
 For Windows: 
+
 pip install wenetruntime
+
 pip install soundfile 
 
 Run wenetgpt.py
