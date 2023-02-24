@@ -2,7 +2,9 @@
 Wenet + ChatGpt --> ASR chatbot
 
 https://github.com/wenet-e2e/wenet
+
 https://github.com/snakers4/silero-vad
+
 https://github.com/openai/openai-python
 
 For Windows: 
