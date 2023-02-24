@@ -1,38 +1,44 @@
+"""
+GPT-3.5 API is not open yet; Current available models include text-curie-001, text-davinci-002, text-davinci-003, davinci-codex
+"""
+
 import os
 import openai 
 
-API_KEY = "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"
+API_KEY = "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"
 
-def chatgpt_api(prompt, api_key = API_KEY): 
+class ChatGpt:
+    def __init__(self, api_key = API_KEY, enable_chatgpt = False,):
+        self.enable_chatgpt = enable_chatgpt #enable cost money
+        openai.api_key = api_key
+        self.engine_id = "text-davinci-003" #text-curie-001, text-davinci-002, text-davinci-003, davinci-codex
 
-    if prompt.strip() is "":
-        return ""
+    def chatgpt_api(self, prompt):
 
-    openai.api_key = api_key
-    print("You:      " + prompt.strip())
+        if not self.enable_chatgpt:
+            print("openai:  " + "\033[91m" + "... no response / api diabled" + "\033[0m\n\n", flush = True)
+            return ""
 
-    try:
-        """
-        response = openai.Completion.create(
-            engine = "davinci-codex", #text-curie-001, text-davinci-002, text-davinci-003, davinci-codex
-            prompt = prompt, 
-            temperature = 0.9,
-            max_tokens = 100,
-            top_p = 1.0,
-            frequency_penalty = 0.0,
-            presence_penalty = 0.0
-        )"""
+        try:
+            response = openai.Completion.create(
+                engine=self.engine_id,
+                prompt=prompt,
+                max_tokens=100,
+                n=1,
+                stop=None,
+                temperature=0.7,
+            )
+            self.output(prompt, response)       
+            return response.choices[0].text.strip()
+        except openai.error.RateLimitError:
+            self.enable_chatgpt = False
+            print("Error: API limit exceeded. Please wait and try again later.")
+            #sys.exit(1)
+            return ""
 
-        #generated_text = response["choices"][0]["text"].strip()
-        
-        generated_text = prompt.strip() + "!!~~~~"
-
-        print("chatgpt: " + "\033[91m" + generated_text + "\033[0m")
-        return generated_text
-
-    except:
-        print("openai no reponse")
-        return ""
+    def output(self, prompt, response):
+        print("openai:  " + "\033[91m" + response.choices[0].text.strip() + "\033[0m" + "\n\n", flush = True)
 
 if __name__ == "__main__":
-    generate_text("why sky is blue")
+    gpt = ChatGpt()
+    gpt.chatgpt_api("how's going")
