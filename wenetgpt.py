@@ -107,6 +107,7 @@ class WenetAsr:
             except KeyboardInterrupt:
                 print("Interrupt received, stopping threads...")
                 self.terminate()
+
     def terminate(self):
         self.terminate_event.set()
 
@@ -120,7 +121,6 @@ class WenetAsr:
         self.audio_queue.join()
         
         print("Threads stopped, exiting...")
-
 
     def record_audio(self):
         threshold_enabled = False
