@@ -1,21 +1,15 @@
 # wenetgpt
-Wenet + ChatGpt --> ASR chatbot
+Vad + Wenet (asr) + ChatGpt + VITS (tts) --> audio chatbot
 
-https://github.com/wenet-e2e/wenet
-
+It uses below codebases
 https://github.com/snakers4/silero-vad
-
+https://github.com/wenet-e2e/wenet
 https://github.com/openai/openai-python
+https://github.com/jaywalnut310/vits
 
 For Windows: 
-
+conda create -n "wenet"
 pip install wenetruntime
-
 pip install soundfile 
-
-Run wenetgpt.py
-
-Main parameters:
-1. VAD_THRESHOLD
-2. HANGOVER parameter
-
+...
+run.py
